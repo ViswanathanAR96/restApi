@@ -1,0 +1,79 @@
+
+  [
+    {
+      "userId": 1,
+      "firstName": "Krish",
+      "lastName": "Lee",
+      "phoneNumber": "123456",
+
+      "emailAddress": "krish.lee@learningcontainer.com",
+	  "orders": 
+			{
+				"order1": "Nokia 6.1",
+				"order2": "Asus X550L",
+				"order3": "Casio- GShock",
+				"order4": "Samsung HD LED 55"
+			}	
+		
+    },
+    {
+      "userId": 2,
+      "firstName": "racks",
+      "lastName": "jacson",
+      "phoneNumber": "123456",
+      "emailAddress": "racks.jacson@learningcontainer.com",
+	  "orders": 
+			{
+				"order1": "Nokia 6.1",
+				"order2": "Asus X550L",
+				"order3": "Casio- GShock",
+				"order4": "Samsung HD LED 55"
+			}	
+		
+    },
+    {
+      "userId": 3,
+      "firstName": "denial",
+      "lastName": "roast",
+      "phoneNumber": "33333333",
+      "emailAddress": "denial.roast@learningcontainer.com",
+	  "orders": 
+			{
+				"order1": "Iphone X",
+				"order2": "Acer SSD12",
+				"order3": "Fastrack- Elite",
+				"order4": "Panasonic LED 45"
+			}	
+		
+    },
+    {
+      "userId": 4,
+      "firstName": "devid",
+      "lastName": "neo",
+      "phoneNumber": "222222222",
+      "emailAddress": "devid.neo@learningcontainer.com",
+	  "orders": 
+			{
+				"order1": "Google Pixel 3",
+				"order2": "Toshiba A123",
+				"order3": "Titan- Rega",
+				"order4": "Sony HD OLED 58"
+			}	
+		
+    },
+    {
+      "userId": 5,
+      "firstName": "jone",
+      "lastName": "mac",
+      "phoneNumber": "111111111",
+      "emailAddress": "jone.mac@learningcontainer.com",
+	  "orders": 
+			{
+				"order1": "Huvawei F50",
+				"order2": "Sony Vaio",
+				"order3": "Sonata- 100",
+				"order4": "AmazonTV HD 85"
+			}	
+		
+    }
+  ]

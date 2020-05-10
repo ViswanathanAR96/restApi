@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="common.css">
+</head>
+
+<body>
+<header>
+	<img src="tech.jpg" alt="Computer Science Enthusiast" id="hhead">
+</header>
+
+<div class="row">
+	<div class="column left">
+		<h4>Get All Users here - </h4>
+	   	<form id="user_form"  >
+	        <input id="submit1" type="submit" value="Get Users" ">		
+	    </form>
+    </div>
+    <div class="column right">
+    <h4>Get User Information here - </h4> 
+	<form id="user_form2"  >
+	   		User ID:
+	   		<input id="userid" type="text" name="keyword">
+	        <input id="submit" type="submit" value="submit" > 
+	    </form>
+    </div>
+ </div>
+ <div class="row">
+     <div class="column left">
+         <h4>Get All Orders here - </h4> 
+	   	<form id="orders_form">   	
+	   		User ID: 
+	   		<input id="userid2" type="text" name="keyword2">
+	        <input id="submit2" type="submit" value="submit" >
+	    </form>
+    </div>
+ 
+    <div class="column right innerow">
+    <h4>Get Order for user here - </h4>
+	   	<form id="orderid_form" >
+		   		<div class="indiv in1">
+			   		<h4>User ID:</h4> 
+			   		<input id="userid3" type="text" name="keyword3">	   		
+		   		</div>
+		   		<div class="indiv in2">
+			   		<h4>Order ID:</h4>
+			   		<input id="orderid" type="text" name="order">
+			   		<input id="submit3" type="submit" value="submit"  >
+		   		</div>
+	    </form>
+    </div>
+ </div>
+    <div id="response">
+    <div class="rescol resleft">
+	    <table id="records_table" border='1'>
+	    <thead>
+			<th id="userId">UserId</th>
+	        <th id="fnameId">FirstName</th>		
+	        <th id="lnameId">LastName</th>
+	        <th id="phoneNoId">PhoneNumber</th>
+	        <th id="emaiId">EmailAddress</th>
+	    </thead>	
+		<tbody>	
+			<tr id = "#tableRow">
+				<td id = "td1"> </td>
+				<td id = "td2"> </td>
+				<td id = "td3"> </td>
+				<td id = "td4"> </td>
+				<td id = "td5"> </td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div class="rescol resRight">
+		<table id="orders_table" border='1'>
+			<thead>
+				<th id="userId">UserId</th>
+				<th id="orderId">Order(s)</th>
+			</thead>
+			<tbody>
+				<tr id = "#tableRow">
+					<td id = "td6"> </td>
+					<td id = "td7"> </td>
+				</tr>
+			</tbody>
+		</table>
+
+    <script>
+
+    	/*
+		*Method 1 Get users
+		*
+		*/
+		var allUser = $("#user_form").submit(function(e){
+		    e.preventDefault();
+					
+		    $.ajax({
+		        url:'http://localhost:8085/users/',
+		        type:'post',
+		        data:$('#user_form').serialize(),
+		        success:function(data){
+					
+					var userData = "", orderData = "";	
+					$.each(data, function(key, value){
+						
+						userData += '<tr>';
+						userData += '<td>'+value.userId+'</td>';
+						userData += '<td>'+value.firstName+'</td>';
+						userData += '<td>'+value.lastName+'</td>';
+						userData += '<td>'+value.phoneNumber+'</td>';
+						userData += '<td>'+value.emailAddress+'</td>';			
+					});
+					$('#records_table').append(userData);
+					
+					$.each(data, function(key, value){
+						orderData += '<tr>';
+						orderData += '<td>'+value.userId+'</td>';
+						orderData += '<td><ul><li>'+value.orders.order1+'</li><li>'+value.orders.order2+"</li><li>"
+						+value.orders.order3+"</li><li>"+value.orders.order4+'</li></ul></td>'
+						orderData += '</tr>';
+					});
+					$('#orders_table').append(orderData);
+						console.log(data);
+		        }
+		    });
+		});
+		
+		/*
+		*Method 2 Get user
+		*Inputs: userid=1,
+		*/
+		var allUser = $("#user_form2").submit(function(e){
+		    e.preventDefault();
+			var userId = $( "#userid" ).val();
+		    $.ajax({
+				url: "http://localhost:8085/users/"+userId,
+		        type:'post',
+		        data:$('#user_form2').serialize(),
+		        success:function(data){
+					var userData = "", orderData="";
+					console.log(data.userId);
+									
+						userData += '<tr>';
+						userData += '<td>'+data.userId+'</td>';
+						userData += '<td>'+data.firstName+'</td>';
+						userData += '<td>'+data.lastName+'</td>';
+						userData += '<td>'+data.phoneNumber+'</td>';
+						userData += '<td>'+data.emailAddress+'</td>';								
+					$('#records_table').append(userData);
+					console.log(data);
+					
+						orderData += '<tr>';
+						orderData += '<td>'+data.userId+'</td>';
+						orderData += '<td><ul><li>'+data.orders.order1+'</li><li>'+data.orders.order2+"</li><li>"
+						+data.orders.order3+"</li><li>"+data.orders.order4+'</li></ul></td>'
+						orderData += '</tr>';				
+					$('#orders_table').append(orderData);
+					
+		        }
+		    });
+		});
+		
+		/*
+		*Method 3 Get orders
+		*Inputs: userid=1,
+		*/
+		var allUser = $("#orders_form").submit(function(e){
+		    e.preventDefault();
+			var userId = $( "#userid2" ).val();
+			console.log(userId);
+			console.log("test");
+		    $.ajax({
+				
+		        url:"http://localhost:8085/users/"+userId+"/orders",
+		        type:'post',
+		        data:$('#orders_form').serialize(),
+		        success:function(data){	
+					var orderData="";
+					orderData += '<tr>';
+					orderData += '<td><ul><li>'+data.order1+"</li><li>"+data.order2+"</li><li>"
+					+data.order3+"</li><li>"+data.order4+'</li></ul></td>';
+					orderData += '</tr>';
+					$("#td6").html(userId);		
+					$("#td7").html(orderData);
+					
+		        }
+		    });
+		});
+		
+		
+		/*
+		*Method 4 - Get order
+		*Inputs: userid=1, orderid= order1
+		*/
+		var allUser = $("#orderid_form").submit(function(e){
+		    e.preventDefault();
+			var userId = $( "#userid3" ).val();
+			var orderId = $( "#orderid" ).val();
+		    $.ajax({			
+		        url:"http://localhost:8085/users/"+userId+"/orders/"+orderId,
+		        type:'post',
+		        data:$('#orderid_form').serialize(),
+		        success:function(data){	
+					var orderData="";
+					orderData += '<tr>';
+					orderData += '<td>'+data+'</td>';
+					orderData += '</tr>';	
+					$("#td6").html(userId);			
+					$("#td7").html(orderData);				
+		        }
+		    });
+		});
+		   
+	 </script>
+	 
+	<footer class="ffoot">
+	<h6>Copyright &#169; RestFul.com. All rights reserved.</h6>
+	</footer>
+	
+	</body>
+</html>
